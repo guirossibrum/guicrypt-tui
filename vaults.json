@@ -4,5 +4,11 @@
     "name": "test",
     "path": ".",
     "mount_point": "/tmp"
+  },
+  {
+    "id": 2,
+    "name": "manual_test",
+    "path": ".",
+    "mount_point": "/tmp/test"
   }
 ]
