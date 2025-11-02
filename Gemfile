@@ -7,6 +7,7 @@ gem 'tty-screen'
 gem 'json'
 gem 'fileutils'
 gem 'open3'
+gem 'keyring'
 
 group :test do
   gem 'rspec'

@@ -1,0 +1,7 @@
+require 'rspec'
+require_relative '../lib/guicrypt-tui'
+require_relative '../lib/guicrypt_tui/core/vault'
+require_relative '../lib/guicrypt_tui/core/vault_store'
+require_relative '../lib/guicrypt_tui/core/gocryptfs_service'
+require_relative '../lib/guicrypt_tui/core/keyring_service'
+require_relative '../lib/guicrypt_tui/core/mount_service'
