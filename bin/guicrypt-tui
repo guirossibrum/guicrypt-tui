@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+require 'open3'
+
+# Check Ruby version
+if RUBY_VERSION < '3.0.0'
+  puts "Error: Ruby 3.0 or higher required. Current: #{RUBY_VERSION}"
+  exit 1
+end
+
+# Check gocryptfs
+stdout, stderr, status = Open3.capture3('which gocryptfs')
+unless status.success?
+  puts "gocryptfs not found. Attempting to install via pacman..."
+  stdout, stderr, status = Open3.capture3('sudo pacman -S gocryptfs')
+  if status.success?
+    puts "gocryptfs installed successfully"
+  else
+    puts "Failed to install gocryptfs. Please install manually."
+    exit 1
+  end
+end
+
+# Load the app
+require_relative '../lib/guicrypt-tui'
+GuicryptTui::App.run
