@@ -1,8 +1,6 @@
 #include "core/gocryptfs.h"
 #include <cstdlib>
-#include <cstdio>
 #include <string>
-#include <array>
 
 namespace guicrypt {
 

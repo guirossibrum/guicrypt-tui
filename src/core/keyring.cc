@@ -1,8 +1,6 @@
 #include "core/keyring.h"
 #include <cstdlib>
 #include <string>
-#include <array>
-#include <memory>
 #include "util/exec.h"
 
 namespace guicrypt {

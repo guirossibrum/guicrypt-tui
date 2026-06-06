@@ -32,7 +32,6 @@ set(LIB_SOURCES
   src/core/vault_store.cc
   src/core/gocryptfs.cc
   src/core/keyring.cc
-  src/core/mount_check.cc
   src/ui/screen.cc
 )
 

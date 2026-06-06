@@ -40,6 +40,7 @@ cmake --build build -j$(nproc)
 | `o` | Open mounted vault |
 | `a` | Add existing vault |
 | `n` | Create new vault |
+| `c` | Change password |
 | `r` | Remove vault |
 | `q` | Quit |
 

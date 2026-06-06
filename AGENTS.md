@@ -40,9 +40,9 @@ guicrypt-tui/
 │   ├── core/
 │   │   ├── vault.h/cc           - Vault model (id, name, path, mount_point)
 │   │   ├── vault_store.h/cc     - JSON persistence (vaults.json read/write)
-│   │   ├── gocryptfs.h/cc       - CLI wrappers: mount, unmount, create, check_installed
+│   │   ├── gocryptfs.h/cc       - CLI wrappers: mount, unmount, create, remove, check_installed, change_password
 │   │   ├── keyring.h/cc         - secret-tool integration for password storage
-│   │   └── mount_check.h/cc     - Detect mounted status via /proc/mounts
+│   │   └── vault.h/cc           - Mounted detection via /proc/mounts in Vault::mounted()
 │   ├── ui/
 │   │   └── screen.h/cc          - Single-file FTXUI screen with all panels + modals
 │   └── util/
@@ -101,18 +101,20 @@ Single-screen design in src/ui/screen.cc:
 - Right pane: selected vault details + vault-specific action hints.
 - Bottom bar: status message (left), global keybinding hints (right), dark blue bg.
 
-Three modal dialogs (overlaid via Modal decorator):
+Five modal dialogs (overlaid via Modal decorator):
 - Mount password: single Input (password mode) + CatchEvent for Enter/Escape.
 - Add vault: path + mount_point Inputs + CatchEvent for Enter/Escape.
 - New vault: name, parent dir, mount point, password, confirm Inputs + CatchEvent.
+- Remove vault: two radio options (soft/hard delete) + confirm step for hard delete.
+- Change password: old password, new password, confirm inputs + CatchEvent.
 
 Modal implementation detail: FTXUI's Modal uses Container::Tab internally. For events to
 flow correctly through Modal when hidden, the main component must be Focusable. Use
 `Renderer(bool)` (not `Renderer()`) to create a focusable main renderer.
 
 Keybindings:
-  Global (no dialog open): j/k/↑↓ navigate, m mount, u unmount, f open folder,
-  o open mount, a add vault, n new vault, r remove, q quit.
+  Global (no dialog open): j/k/↑↓ navigate, m mount, u unmount, v vault directory,
+  o open mount, a add vault, n new vault, r remove, c change password, q quit.
   Dialog: Enter confirm, Esc cancel. Tab cycles input fields.
 
 Event flow:
@@ -130,8 +132,7 @@ Chapter 5 - KEY IMPLEMENTATION NOTES
 - fusermount -uz (lazy unmount) required because xdg-opened file manager keeps mount open.
 - All shell arguments are quoted with \" to handle paths with spaces.
 - Tilde (~) in paths: shell expands ~ in arguments passed to system(); no explicit expansion needed.
-- Keyring: secret-tool CLI with label "vault" and attribute key "vault_name".
-- MountCheck reads /proc/mounts at render time for fresh status.
+- Keyring: secret-tool CLI with label "guicrypt-tui" and attribute "vault" (value = vault name).
 - CMake OBJECT library didn't propagate FTXUI includes; STATIC library used instead.
 
 Build commands:
