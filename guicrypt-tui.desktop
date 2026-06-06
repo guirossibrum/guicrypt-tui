@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=guicrypt-tui
+Comment=Manage gocryptfs encrypted vaults from a TUI
+Categories=Utility;Security;
+Terminal=true
+Exec=guicrypt-tui
+Icon=document-encrypt

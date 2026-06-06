@@ -10,19 +10,26 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # ── Dependencies ──────────────────────────────────────────────
-include(FetchContent)
+option(USE_SYSTEM_DEPS "Use system packages for ftxui and nlohmann-json instead of FetchContent" OFF)
 
-FetchContent_Declare(ftxui
-  GIT_REPOSITORY https://github.com/ArthurSonzogni/FTXUI
-  GIT_TAG v5.0.0
-)
-FetchContent_MakeAvailable(ftxui)
+if(USE_SYSTEM_DEPS)
+  find_package(ftxui REQUIRED)
+  find_package(nlohmann_json REQUIRED)
+else()
+  include(FetchContent)
 
-FetchContent_Declare(nlohmann_json
-  GIT_REPOSITORY https://github.com/nlohmann/json
-  GIT_TAG v3.11.3
-)
-FetchContent_MakeAvailable(nlohmann_json)
+  FetchContent_Declare(ftxui
+    GIT_REPOSITORY https://github.com/ArthurSonzogni/FTXUI
+    GIT_TAG v5.0.0
+  )
+  FetchContent_MakeAvailable(ftxui)
+
+  FetchContent_Declare(nlohmann_json
+    GIT_REPOSITORY https://github.com/nlohmann/json
+    GIT_TAG v3.11.3
+  )
+  FetchContent_MakeAvailable(nlohmann_json)
+endif()
 
 set(FTXUI_LIBS ftxui::screen ftxui::dom ftxui::component)
 
@@ -51,3 +58,5 @@ endif()
 
 # ── Install ───────────────────────────────────────────────────
 install(TARGETS guicrypt-tui RUNTIME DESTINATION bin)
+install(FILES guicrypt-tui.desktop DESTINATION share/applications)
+install(FILES LICENSE DESTINATION share/licenses/guicrypt-tui)
