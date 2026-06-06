@@ -3,6 +3,6 @@ Type=Application
 Name=guicrypt-tui
 Comment=Manage gocryptfs encrypted vaults from a TUI
 Categories=Utility;Security;
-Terminal=true
-Exec=guicrypt-tui
+Terminal=false
+Exec=foot --class=guicrypt-tui -e guicrypt-tui
 Icon=document-encrypt
