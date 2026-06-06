@@ -1,0 +1,17 @@
+# Build
+build/
+*.o
+*.a
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project specific
+vaults.json
