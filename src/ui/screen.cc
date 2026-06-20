@@ -604,7 +604,7 @@ void Screen::run() {
       const auto& vaults = store.all();
       if (!vaults.empty() && S->selected < (int)vaults.size()) {
         auto& v = vaults[S->selected];
-        std::string cmd = "xdg-open \"" + v.path + "\" 2>/dev/null &";
+        std::string cmd = "nohup xdg-open \"" + v.path + "\" >/dev/null 2>&1 &";
         system(cmd.c_str());
         S->status = "Opened " + v.path;
       }
@@ -615,7 +615,7 @@ void Screen::run() {
       if (!vaults.empty() && S->selected < (int)vaults.size()) {
         auto& v = vaults[S->selected];
         if (v.mounted()) {
-          std::string cmd = "xdg-open \"" + v.mount_point + "\" 2>/dev/null &";
+          std::string cmd = "nohup xdg-open \"" + v.mount_point + "\" >/dev/null 2>&1 &";
           system(cmd.c_str());
           S->status = "Opened " + v.mount_point;
         } else {
