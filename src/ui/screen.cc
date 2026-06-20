@@ -165,7 +165,7 @@ void Screen::run() {
     auto status_status = text(" " + S->status) | bgcolor(Color::DarkBlue) | color(Color::White);
     auto status_hints = text(" [a]Add  [n]New  [r]Remove  [q]Quit ") |
                         bgcolor(Color::DarkBlue) | color(Color::White);
-    auto status_ver = text(" v1.0.0 ") | bgcolor(Color::DarkBlue) | color(Color::White);
+    auto status_ver = text(" v1.1.0 ") | bgcolor(Color::DarkBlue) | color(Color::White);
     auto dim = Terminal::Size();
     int left_w = std::max(20, dim.dimx / 3);
     return vbox({
