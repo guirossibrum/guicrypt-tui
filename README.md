@@ -12,7 +12,7 @@ Built with C++20 and [FTXUI](https://github.com/ArthurSonzogni/FTXUI) v5.0.0.
 - Auto-detect mounted status (● / ○)
 - Modal dialogs for password input, add vault, new vault, remove vault
 - Open vault directory or mount point via xdg-open
-- Auto-installs gocryptfs if missing (pacman)
+- Auto-installs gocryptfs if missing (pacman, or `omarchy-pkg-add` when available)
 - 8 unit tests
 
 ## Build
@@ -50,7 +50,13 @@ cmake --build build -j$(nproc)
 - gnome-keyring (or compatible secret-tool provider)
 - CMake 3.20+, C++20 compiler
 - libsecret (runtime, for secret-tool CLI)
+- xdg-terminal-exec (runtime, launches the `.desktop` entry)
 - FTXUI, nlohmann-json, googletest (auto-fetched by CMake)
+
+On [Omarchy](https://omarchy.org), the app launcher opens guicrypt-tui as a floating, centered
+window (matching Omarchy's own bundled TUI apps), and a missing `gocryptfs` is installed via
+`omarchy-pkg-add` with a desktop notification instead of a plain `pacman` call. Both fall back to
+generic behavior on any other Arch/Hyprland setup.
 
 ## License
 

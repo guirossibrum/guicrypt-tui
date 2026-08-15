@@ -2,13 +2,13 @@
 # Contributor: Gui Rossibrum <guirossibrum@proton.me>
 
 pkgname=guicrypt-tui
-pkgver=1.1.0
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="TUI manager for gocryptfs encrypted vaults"
 arch=('x86_64')
 url="https://github.com/guirossibrum/guicrypt-tui"
 license=('MIT')
-depends=('gocryptfs' 'libsecret')
+depends=('gocryptfs' 'libsecret' 'xdg-terminal-exec')
 makedepends=('cmake')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('SKIP')

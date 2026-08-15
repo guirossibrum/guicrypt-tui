@@ -8,6 +8,14 @@ bool Gocryptfs::check_installed() {
   return system("command -v gocryptfs >/dev/null 2>&1") == 0;
 }
 
+bool Gocryptfs::install() {
+  if (system("command -v omarchy-pkg-add >/dev/null 2>&1") == 0) {
+    system("omarchy-notification-send \"guicrypt-tui\" \"Installing gocryptfs...\" >/dev/null 2>&1");
+    return system("omarchy-pkg-add gocryptfs >/dev/null 2>&1") == 0;
+  }
+  return system("sudo pacman -S --noconfirm gocryptfs >/dev/null 2>&1") == 0;
+}
+
 bool Gocryptfs::mount(const std::string& path, const std::string& mount_point, const std::string& password) {
   std::string cmd = "mkdir -p \"" + mount_point + "\" && echo \"" + password + "\" | gocryptfs \"" + path + "\" \"" + mount_point + "\" >/dev/null 2>&1";
   return system(cmd.c_str()) == 0;

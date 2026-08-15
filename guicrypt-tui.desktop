@@ -1,8 +1,10 @@
 [Desktop Entry]
-Type=Application
+Version=1.0
 Name=guicrypt-tui
 Comment=Manage gocryptfs encrypted vaults from a TUI
 Categories=Utility;Security;
-Terminal=true
-Exec=guicrypt-tui
+Exec=xdg-terminal-exec --app-id=TUI.float -e guicrypt-tui
+Terminal=false
+Type=Application
 Icon=document-encrypt
+StartupNotify=true

@@ -53,3 +53,4 @@ Key gotcha: FTXUI's `Modal` uses `Container::Tab` internally, so for events to r
 - Unmounting always uses `fusermount -uz` (lazy unmount) because a file manager opened via `xdg-open` on the mount point can otherwise block a normal unmount.
 - Shell arguments passed to `system()`/`popen()` are quoted with `\"..\"` to handle paths containing spaces; `~` expansion is left to the shell, not done explicitly in C++.
 - CMake note: an `OBJECT` library did not propagate FTXUI include paths correctly — `guicrypt-lib` must stay a `STATIC` library.
+- Omarchy integration is runtime-detected, not build-time: `guicrypt-tui.desktop` launches via `xdg-terminal-exec --app-id=TUI.float` (Omarchy's Hyprland rules auto-float/center windows with that app-id; the flag is inert on other setups). `Gocryptfs::install()` checks for `omarchy-pkg-add` on `PATH` and prefers it (plus an `omarchy-notification-send` toast) over a raw `sudo pacman` call when present, falling back otherwise.

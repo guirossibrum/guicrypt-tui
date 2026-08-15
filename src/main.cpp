@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstdlib>
 #include "ui/screen.h"
 #include "core/gocryptfs.h"
 
@@ -8,7 +7,7 @@ int main() {
 
   if (!guicrypt::Gocryptfs::check_installed()) {
     std::cerr << "gocryptfs not found. Attempting to install..." << std::endl;
-    if (system("sudo pacman -S --noconfirm gocryptfs >/dev/null 2>&1") != 0) {
+    if (!guicrypt::Gocryptfs::install()) {
       std::cerr << "Failed to install gocryptfs. Please install manually." << std::endl;
       return 1;
     }

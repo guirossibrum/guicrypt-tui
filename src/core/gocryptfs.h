@@ -7,6 +7,7 @@ namespace guicrypt {
 class Gocryptfs {
 public:
   static bool check_installed();
+  static bool install();
   static bool mount(const std::string& path, const std::string& mount_point, const std::string& password);
   static bool unmount(const std::string& mount_point);
   static bool create(const std::string& path, const std::string& password);

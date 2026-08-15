@@ -85,7 +85,7 @@ Test:
   ./build/test/guicrypt-tui_test
 
 Arch AUR packaging:
-  PKGBUILD depends on: gocryptfs, ftxui, nlohmann-json, libsecret
+  PKGBUILD depends on: gocryptfs, ftxui, nlohmann-json, libsecret, xdg-terminal-exec
   Installs to /usr/bin/guicrypt-tui
 
 
@@ -134,6 +134,10 @@ Chapter 5 - KEY IMPLEMENTATION NOTES
 - Tilde (~) in paths: shell expands ~ in arguments passed to system(); no explicit expansion needed.
 - Keyring: secret-tool CLI with label "guicrypt-tui" and attribute "vault" (value = vault name).
 - CMake OBJECT library didn't propagate FTXUI includes; STATIC library used instead.
+- Omarchy integration is opt-in at runtime, not build time: guicrypt-tui.desktop launches via
+  `xdg-terminal-exec --app-id=TUI.float` (Omarchy's Hyprland rules auto-float/center that app-id;
+  inert elsewhere). Gocryptfs::install() detects `omarchy-pkg-add` on PATH and uses it (with an
+  omarchy-notification-send toast) instead of a raw `sudo pacman` call when present.
 
 Build commands:
   cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
