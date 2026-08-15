@@ -1,7 +1,17 @@
 #include "core/vault.h"
+#include <filesystem>
 #include <fstream>
 
 namespace guicrypt {
+
+namespace {
+
+std::string strip_trailing_slash(const std::string& p) {
+  if (p.size() > 1 && p.back() == '/') return p.substr(0, p.size() - 1);
+  return p;
+}
+
+} // anon ns
 
 bool Vault::valid() const {
   std::error_code ec;
@@ -10,14 +20,24 @@ bool Vault::valid() const {
 
 bool Vault::mounted() const {
   if (mount_point.empty()) return false;
+  auto needle = strip_trailing_slash(mount_point);
   std::ifstream mounts("/proc/mounts");
   std::string line;
   while (std::getline(mounts, line)) {
-    if (line.find(mount_point) != std::string::npos) {
-      return true;
-    }
+    auto first_space = line.find(' ');
+    if (first_space == std::string::npos) continue;
+    auto second_space = line.find(' ', first_space + 1);
+    if (second_space == std::string::npos) continue;
+    auto mp = strip_trailing_slash(line.substr(first_space + 1, second_space - first_space - 1));
+    if (mp == needle) return true;
   }
   return false;
+}
+
+bool Vault::stale_mount_point() const {
+  if (mount_point.empty() || mounted()) return false;
+  std::error_code ec;
+  return std::filesystem::exists(mount_point, ec);
 }
 
 void to_json(nlohmann::json& j, const Vault& v) {

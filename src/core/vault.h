@@ -13,6 +13,7 @@ struct Vault {
 
   bool valid() const;
   bool mounted() const;
+  bool stale_mount_point() const;
 };
 
 void to_json(nlohmann::json& j, const Vault& v);
